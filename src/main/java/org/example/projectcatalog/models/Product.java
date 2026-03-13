@@ -10,4 +10,6 @@ public class Product extends baseModel {
     String ProductName;
     String ProductDescription;
     Double ProductPrice;
+    String ImageUrl;
+    Category category;
 }
