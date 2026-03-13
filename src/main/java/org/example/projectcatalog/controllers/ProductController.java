@@ -41,29 +41,51 @@ public class ProductController {
         return productDtos;
     }
 
-    //Add New Product API
+
+    // Add New Product
     @PostMapping("/products")
-    public ProductDto addProduct(@RequestBody ProductDto productDto)
-    {
-        return null;
+    public ProductDto addProduct(@RequestBody ProductDto productDto) {
+        Product product = to(productDto);
+        Product savedProduct = productService.createProduct(product);
+        return from(savedProduct);
     }
 
-    //Update a product
+    // Update/Replace a product
     @PutMapping("/products/{id}")
-    public ProductDto updateProduct(@PathVariable Long id,@RequestBody ProductDto productDto)
-    {
-        return null;
+    public ProductDto updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+        Product product = to(productDto);
+        Product updatedProduct = productService.replaceProduct(id, product);
+        return from(updatedProduct);
     }
 
-    //Delete a product
+    // Delete a product
     @DeleteMapping("/products/{id}")
-    public ProductDto deleteProduct(@PathVariable Long id)
-    {
-        return null;
+    public ProductDto deleteProduct(@PathVariable Long id) {
+        Product deletedProduct = productService.deleteProduct(id);
+        return from(deletedProduct);
+    }
+
+    // Mapper to convert DTO to Model
+    private Product to(ProductDto productDto) {
+        Product product = new Product();
+        product.setId(productDto.getId());
+        product.setProductName(productDto.getName());
+        product.setProductDescription(productDto.getDescription());
+        product.setProductPrice(productDto.getPrice());
+        product.setImageUrl(productDto.getImageUrl());
+
+        if (productDto.getCategory() != null) {
+            Category category = new Category();
+            category.setId(productDto.getCategory().getId());
+            category.setName(productDto.getCategory().getName());
+            product.setCategory(category);
+        }
+        return product;
     }
 
 
-    //Mapper
+
+    //Mapperto convert Model to DTO
     private ProductDto from(Product product)
     {
         ProductDto productDto = new ProductDto();

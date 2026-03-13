@@ -60,19 +60,44 @@ public class FakeStoreProductService implements IProductService{
         return restTemplate.execute(url, httpMethod, requestCallback, responseExtractor, uriVariables);
     }
 
-
-    //Mapper
-    public Product replaceProduct(Product product,Long id) {
-        FakeStoreDto  input = from(product);
-        FakeStoreDto output = requestForEntity("http://fakestoreapi.com/products/{id}",HttpMethod.PUT,input,
-                        FakeStoreDto.class,id).getBody();
-        return from(output);
+    @Override
+    public Product createProduct(Product product) {
+        FakeStoreDto input = from(product);
+        // POST request to create
+        FakeStoreDto response = requestForEntity("https://fakestoreapi.com/products",
+                HttpMethod.POST, input, FakeStoreDto.class).getBody();
+        return from(response);
     }
 
+    @Override
+    public Product replaceProduct(Long id, Product product) {
+        FakeStoreDto input = from(product);
+        // PUT request to replace
+        FakeStoreDto response = requestForEntity("https://fakestoreapi.com/products/{id}",
+                HttpMethod.PUT, input, FakeStoreDto.class, id).getBody();
+        return from(response);
+    }
+
+    @Override
+    public Product deleteProduct(Long id) {
+        // DELETE request (request body is null)
+        FakeStoreDto response = requestForEntity("https://fakestoreapi.com/products/{id}",
+                HttpMethod.DELETE, null, FakeStoreDto.class, id).getBody();
+        return from(response);
+    }
+
+
+    //MAPPER
     private FakeStoreDto from(Product product) {
-        // Add implementation here
         FakeStoreDto fakeStoreProductDto = new FakeStoreDto();
+        fakeStoreProductDto.setId(product.getId());
+        fakeStoreProductDto.setTitle(product.getProductName());
+        fakeStoreProductDto.setPrice(product.getProductPrice());
+        fakeStoreProductDto.setDescription(product.getProductDescription());
         fakeStoreProductDto.setImage(product.getImageUrl());
+        if (product.getCategory() != null) {
+            fakeStoreProductDto.setCategory(product.getCategory().getName());
+        }
         return fakeStoreProductDto;
     }
 
