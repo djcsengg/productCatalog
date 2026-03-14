@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Entity //Creates Table
@@ -19,4 +21,11 @@ public class Product extends baseModel {
                                          // delete a product with respect to a category
     Category category;
     Boolean isPrime;
+
+    public Product(){
+
+        this.setCreatedAt(new Date());
+        this.setLastUpdatedAt(new Date());
+        this.setState(State.ACTIVE);
+    }
 }

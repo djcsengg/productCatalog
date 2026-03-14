@@ -7,19 +7,22 @@ import org.example.projectcatalog.models.Category;
 import org.example.projectcatalog.models.Product;
 import org.example.projectcatalog.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
+    @Qualifier("storageProductService") //Suggests which Implementation to use
     private IProductService productService;
 
     //Get One Product
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ProductDto getProductDetails(@PathVariable Long id)
     {
         Product product = productService.getProductById(id);
@@ -28,7 +31,7 @@ public class ProductController {
     }
 
     //Get All Product
-    @GetMapping("/products")
+    @GetMapping
     public List<ProductDto> getAllProducts()
     {
         List<ProductDto> productDtos = new ArrayList<>();
@@ -43,7 +46,7 @@ public class ProductController {
 
 
     // Add New Product
-    @PostMapping("/products")
+    @PostMapping
     public ProductDto addProduct(@RequestBody ProductDto productDto) {
         Product product = to(productDto);
         Product savedProduct = productService.createProduct(product);
@@ -51,7 +54,7 @@ public class ProductController {
     }
 
     // Update/Replace a product
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     public ProductDto updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         Product product = to(productDto);
         Product updatedProduct = productService.replaceProduct(id, product);
@@ -59,7 +62,7 @@ public class ProductController {
     }
 
     // Delete a product
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     public ProductDto deleteProduct(@PathVariable Long id) {
         Product deletedProduct = productService.deleteProduct(id);
         return from(deletedProduct);
@@ -85,7 +88,7 @@ public class ProductController {
 
 
 
-    //Mapperto convert Model to DTO
+    //Mapper to convert Model to DTO
     private ProductDto from(Product product)
     {
         ProductDto productDto = new ProductDto();
@@ -104,4 +107,5 @@ public class ProductController {
         }
         return productDto;
     }
+
 }
