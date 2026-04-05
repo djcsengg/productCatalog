@@ -49,7 +49,7 @@ class ProductControllerTest {
         Long id  = 101L;
         Product product = new Product();
         product.setId(101L);
-       product.setProductName("Iphone");
+       product.setName("Iphone");
         product.setProductPrice(100000D);
         when(productService.getProductById(id)).thenReturn(product);
 
@@ -101,7 +101,7 @@ class ProductControllerTest {
         Long productId = 5L;
         Product product = new Product();
         product.setId(productId);
-        product.setProductName("Macbook");
+        product.setName("Macbook");
         when(productService.getProductById(productId)).thenReturn(product);
 
         //Act
@@ -120,11 +120,11 @@ class ProductControllerTest {
         // Arrange
         Product p1 = new Product();
         p1.setId(1L);
-        p1.setProductName("Laptop");
+        p1.setName("Laptop");
 
         Product p2 = new Product();
         p2.setId(2L);
-        p2.setProductName("Phone");
+        p2.setName("Phone");
 
         List<Product> mockProducts = Arrays.asList(p1, p2);
 
@@ -156,7 +156,7 @@ class ProductControllerTest {
 
         Product mockSavedProduct = new Product();
         mockSavedProduct.setId(1L);
-        mockSavedProduct.setProductName("Sony TV");
+        mockSavedProduct.setName("Sony TV");
         mockSavedProduct.setProductPrice(50000.0);
 
         // Mock the service behavior (using any() because 'to()' creates a new instance internally)
@@ -183,7 +183,7 @@ class ProductControllerTest {
 
         Product updatedProduct = new Product();
         updatedProduct.setId(id);
-        updatedProduct.setProductName("Macbook Pro");
+        updatedProduct.setName("Macbook Pro");
 
         when(productService.replaceProduct(eq(id), any(Product.class))).thenReturn(updatedProduct);
 
@@ -202,7 +202,7 @@ class ProductControllerTest {
         Long id = 5L;
         Product deletedProduct = new Product();
         deletedProduct.setId(id);
-        deletedProduct.setProductName("Old Phone");
+        deletedProduct.setName("Old Phone");
 
         when(productService.deleteProduct(id)).thenReturn(deletedProduct);
 
@@ -236,7 +236,7 @@ class ProductControllerTest {
         Product capturedProduct = productCaptor.getValue();
 
         // This proves your private to() method is working correctly!
-        assertEquals("Gaming Console", capturedProduct.getProductName());
+        assertEquals("Gaming Console", capturedProduct.getName());
     }
 
 }

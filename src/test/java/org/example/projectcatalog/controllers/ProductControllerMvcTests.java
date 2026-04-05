@@ -43,11 +43,11 @@ public class ProductControllerMvcTests {
         //Arrange
         Product product = new Product();
         product.setId(1L);
-        product.setProductName("Iphone");
+        product.setName("Iphone");
 
         Product product2 = new Product();
         product2.setId(2L);
-        product2.setProductName("Macbook");
+        product2.setName("Macbook");
 
         List<Product> products = new ArrayList<>();
         products.add(product);
@@ -81,7 +81,7 @@ public class ProductControllerMvcTests {
         Product product = new Product();
         product.setId(10L);
         product.setProductPrice(100000D);
-        product.setProductName("SuperComputer");
+        product.setName("SuperComputer");
         when(productService.createProduct(any(Product.class))).thenReturn(product);
 
         //Act and Assert

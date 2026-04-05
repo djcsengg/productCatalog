@@ -77,7 +77,7 @@ public class ProductController {
     private Product to(ProductDto productDto) {
         Product product = new Product();
         product.setId(productDto.getId());
-        product.setProductName(productDto.getName());
+        product.setName(productDto.getName());
         product.setProductDescription(productDto.getDescription());
         product.setProductPrice(productDto.getPrice());
         product.setImageUrl(productDto.getImageUrl());
@@ -98,7 +98,7 @@ public class ProductController {
     {
         ProductDto productDto = new ProductDto();
         productDto.setId (product.getId());
-        productDto.setName(product.getProductName());
+        productDto.setName(product.getName());
         productDto.setDescription(product.getProductDescription());
         productDto.setPrice(product.getProductPrice());
         productDto.setImageUrl(product.getImageUrl());
