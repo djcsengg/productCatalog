@@ -23,6 +23,7 @@ public class JPASearchService implements ISearchService {
     public Page<Product> searchProducts(String query, Integer pageNumber, Integer pageSize,List<SortParam> sortParams) {
         // Now productRepo is no longer null!
         //Sort sort = Sort.by("productPrice").descending().and(Sort.by("id"));
+
         Sort sort =null;
         if(!sortParams.isEmpty())
         {
