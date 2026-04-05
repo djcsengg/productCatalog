@@ -4,6 +4,7 @@ import org.example.projectcatalog.models.Product;
 import org.example.projectcatalog.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,21 @@ public class storageProductService implements IProductService{
     @Autowired
     private ProductRepo productRepo;
 
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
+
     @Override
     public Product getProductById(Long id) {
-        Optional<Product> optionalProduct = productRepo.findById(id);
-        return optionalProduct.orElse(null);
+        Product product = (Product)redisTemplate.opsForHash().get("products",id);
+       if(product==null) {
+           Optional<Product> optionalProduct = productRepo.findById(id);
+           if (optionalProduct.isPresent()) {
+               redisTemplate.opsForHash().put("product", id, optionalProduct.get());
+               return optionalProduct.get();
+           }
+           return null;
+       }
+       return null;
     }
 
     @Override

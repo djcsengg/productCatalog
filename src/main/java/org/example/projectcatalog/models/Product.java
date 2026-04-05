@@ -6,12 +6,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity //Creates Table
-public class Product extends baseModel {
+public class Product extends baseModel implements Serializable {
 
     String ProductName;
     String ProductDescription;
