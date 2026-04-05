@@ -23,6 +23,6 @@ public class SearchController {
         int page = (searchRequestDto.getPageNumber() == null) ? 0 : searchRequestDto.getPageNumber();
         int size = (searchRequestDto.getPageSize() == null) ? 10 : searchRequestDto.getPageSize();
 
-        return searchService.searchProducts(searchRequestDto.getQuery(), page, size);
+        return searchService.searchProducts(searchRequestDto.getQuery(), page, size,searchRequestDto.getSortParams());
     }
 }
