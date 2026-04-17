@@ -1,5 +1,4 @@
 # Product Catalog
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/djcsengg/productCatalog)
 
 This repository contains a Spring Boot application designed to manage a product catalog. It provides a RESTful API for performing CRUD (Create, Read, Update, Delete) operations on products, along with advanced search capabilities. The application is built with a service-oriented architecture, featuring persistence with JPA, caching with Redis, and integration with external APIs.
 
